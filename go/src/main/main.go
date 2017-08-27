@@ -2,34 +2,22 @@ package main
 
 import (
 	"crypto/tls"
-    "crypto/x509"
 	"fmt"
-	"golang.org/x/crypto/acme/autocert"
     "log"
 	"net/http"
-)
 
-var (
-    client *http.Client
-    pool   *x509.CertPool
+    "golang.org/x/crypto/acme/autocert"
 )
-
-func init() {
-    log.Println("running init")
-    pool = x509.NewCertPool()
-    pool.AppendCertsFromPEM(pemCerts)
-    client = &http.Client{Transport: &http.Transport{TLSClientConfig: &tls.Config{RootCAs: pool}}}
-}
 
 func indexHandler (w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, homePage)
+	fmt.Fprintf(w, html)
 }
 
 func main() {
-	log.Printf("starting request")
+	log.Printf("starting")
     certManager := autocert.Manager{
         Prompt:     autocert.AcceptTOS,
-        HostPolicy: autocert.HostWhitelist("shankarvellal.com"),
+        HostPolicy: autocert.HostWhitelist("shankarvellal.com", "www.shankarvellal.com"),
         Cache:      autocert.DirCache("certs"), //folder for storing certificates
     }
 
@@ -46,7 +34,7 @@ func main() {
     } //key and cert are comming from Let's Encrypt
 }
 
-const homePage = 
+const html = 
 `<!DOCTYPE html>
 <html lang="en">
   <head>
