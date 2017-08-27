@@ -15,6 +15,7 @@ var (
 )
 
 func init() {
+    log.Println("running init")
     pool = x509.NewCertPool()
     pool.AppendCertsFromPEM(pemCerts)
     client = &http.Client{Transport: &http.Transport{TLSClientConfig: &tls.Config{RootCAs: pool}}}
