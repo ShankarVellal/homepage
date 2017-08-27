@@ -5,4 +5,4 @@ RUN go get golang.org/x/crypto/acme
 RUN go install main
 ENTRYPOINT /go/bin/main
 
-EXPOSE 443
+EXPOSE 443 80
