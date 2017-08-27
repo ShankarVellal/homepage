@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"golang.org/x/crypto/acme/autocert"
+    "log"
 	"net/http"
 )
 
@@ -12,7 +13,8 @@ func indexHandler (w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	certManager := autocert.Manager{
+	log.Printf("starting request")
+    certManager := autocert.Manager{
         Prompt:     autocert.AcceptTOS,
         HostPolicy: autocert.HostWhitelist("shankarvellal.com"),
         Cache:      autocert.DirCache("certs"), //folder for storing certificates
@@ -26,7 +28,9 @@ func main() {
     }
 
 	http.HandleFunc("/", indexHandler)
-	server.ListenAndServeTLS("", "") //key and cert are comming from Let's Encrypt
+	if err := server.ListenAndServeTLS("", ""); err != nil {
+        log.Fatalf(err.Error())
+    } //key and cert are comming from Let's Encrypt
 }
 
 const homePage = 
