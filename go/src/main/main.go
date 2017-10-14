@@ -32,10 +32,10 @@ func main() {
         },
     }
 
-    //fs := http.FileServer(http.Dir("public/"))
+    fs := http.StripPrefix("/", http.FileServer(http.Dir("public/")))
 
-	http.HandleFunc("/", indexHandler)
-    //http.Handle("/", fs)
+	//http.HandleFunc("/", indexHandler)
+    http.Handle("/", fs)
 
 	if err := server.ListenAndServeTLS("", ""); err != nil {
         log.Fatalf(err.Error())
