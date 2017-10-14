@@ -1,7 +1,7 @@
 FROM golang
 
 ADD ./go/ .
-ADD ./public/ .
+COPY ./public/ ./public/
 RUN go get golang.org/x/crypto/acme
 RUN go install main
 ENTRYPOINT /go/bin/main
