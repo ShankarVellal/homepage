@@ -32,7 +32,7 @@ func main() {
         },
     }
 
-    fs := http.StripPrefix("/", http.FileServer(http.Dir("public/")))
+    fs := http.StripPrefix("/", http.FileServer(http.Dir("public")))
 
 	//http.HandleFunc("/", indexHandler)
     http.Handle("/", fs)
