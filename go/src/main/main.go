@@ -32,7 +32,11 @@ func main() {
         },
     }
 
-	http.HandleFunc("/", indexHandler)
+    fs := http.FileServer(http.Dir("public"))
+
+	//http.HandleFunc("/", indexHandler)
+    http.Handle("/", fs)
+    
 	if err := server.ListenAndServeTLS("", ""); err != nil {
         log.Fatalf(err.Error())
     } //key and cert are comming from Let's Encrypt
